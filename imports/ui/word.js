@@ -32,6 +32,10 @@ Template.word.helpers({
     const curHint = this;
     console.log(this);
     return 5 - curHint.guessCount;
+  },
+  isHintLocked() {
+    const currHint = this;
+    return (!(currHint.contactorId == null));
   }
 });
 
@@ -50,13 +54,13 @@ Template.word.events({
   'click .submit-guess'() {
     // do stuff
   },
-  'click .submit-contact'() {
-    const curWord = Template.instance().data
+  'click .submit-contact'(event) {
+    const curWord = Template.instance().data;
     const curWordId = curWord._id;
     const header = curWord.word.slice(0, curWord.revealedCount);
-    const hintGuessWord = $('.guess-hint-word').val();
+    const hintGuessWord = event.target.closest('li').getElementsByClassName('guess-hint-word')[0].value;
     if(header.toUpperCase() == hintGuessWord.slice(0, curWord.revealedCount).toUpperCase()){
-      Meteor.call('contact', this.hinterId, hintGuessWord, curWordId);
+      Meteor.call('contact', this.hinterId, Meteor.userId(), hintGuessWord, curWordId);
     }else{
       alert("Please input correct word start with revealed letters");
     }

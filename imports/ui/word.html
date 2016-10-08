@@ -28,7 +28,11 @@
               <input class="remove-hint" type="button" value="×">
             {{else}}
               <input class="guess-hint-word" type="text" placeholder="Contact word">
+              {{#if isHintLocked}}
+              <input disabled class="submit-contact" type="button" value="Contact!">
+              {{else}}
               <input class="submit-contact" type="button" value="Contact!">
+              {{/if}}
             {{/if}}
           {{/if}}
         </li>

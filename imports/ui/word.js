@@ -14,7 +14,11 @@ Template.word.helpers({
   },
   revealedWord() {
     const curWord = this;
-    return curWord.word.slice(0, curWord.revealedCount);
+    if (Meteor.userId() === curWord.holderId) {
+      return curWord.word;
+    } else {
+      return curWord.word.slice(0, curWord.revealedCount);
+    }
   },
   isHinter() {
     const curHint = this;
@@ -42,5 +46,14 @@ Template.word.events({
   'click .remove-hint'() {
     const curWordId = Template.instance().data._id;
     Meteor.call('removeHint', Meteor.userId(), curWordId);
+  },
+  'click .submit-guess'() {
+    // do stuff
+  },
+  'click .submit-contact'() {
+    // do stuff
+  },
+  'click .submit-holder-word'() {
+    // do stuff
   }
 });

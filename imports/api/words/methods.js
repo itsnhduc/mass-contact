@@ -16,7 +16,7 @@ Meteor.methods({
   },
   'addHint'(hinterId, curWord, hint, hintWord) {
     const isNotOverHintLimit = curWord.hints.length < 5;
-    const isNotCurrentlyHinting = curWord.hints.filter(h => h.hinterId !== hinterId).length === 0;
+    const isNotCurrentlyHinting = curWord.hints.filter(h => h.hinterId === hinterId).length === 0;
     if (isNotOverHintLimit && isNotCurrentlyHinting) {
       const word = hintWord.toUpperCase();
       Words.update(curWord._id, { $addToSet: {

@@ -6,6 +6,10 @@
     </p>
     {{#unless isHolder}}
       <div>
+        <input class="holder-word" type="text" placeholder="Guess the holder's word">
+        <input class="submit-holder-word" type="submit" value="Submit">
+      </div>
+      <div>
           <input class="new-hint" type="text" placeholder="Add a hint">
           <input class="new-hint-word" type="text" placeholder="Your hint's word">
           <input class="submit-hint" type="submit" value="Submit">
@@ -17,12 +21,14 @@
           {{hint}}&nbsp;
           {{#if isHolder}}
             <input type="text" placeholder="Guess">
+            <input class="submit-guess" type="button" value="Submit">
             <span>×{{guessesLeft}}</span>
           {{else}}
             {{#if isHinter}}
               <input class="remove-hint" type="button" value="×">
             {{else}}
-              <input type="button" value="Contact!">
+              <input type="text" placeholder="Contact word">
+              <input class="submit-contact" type="button" value="Contact!">
             {{/if}}
           {{/if}}
         </li>

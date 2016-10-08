@@ -48,22 +48,31 @@ Meteor.methods({
       }});
   },
   'contact'(hinterId, hintGuessWord, curWordId) {
-    const word = Words.findOne({'_id': curWordId});
-    var hint;
-    for(i = 0; i < word.hints.length; i++){
-      if (word.hints[i].hinterId == hinterId){
-        hint = word.hints[i];
-        break;
+    Words.update({_id: curWordId,
+                  "hints.hinterId" : hinterId
+                },
+                {
+                  $set :{'hints.$.guessCount': 4}
+                });
+    Meteor.setTimeout(function(){
+      const word = Words.findOne({'_id': curWordId});
+      var hint;
+      for(i = 0; i < word.hints.length; i++){
+        if (word.hints[i].hinterId == hinterId){
+          hint = word.hints[i];
+          break;
+        }
       }
-    }
-    if(hintGuessWord.toUpperCase() == hint.word.toUpperCase()){
-      //contact successfully, then reveal one more letter
-      Words.update(curWordId, {$set : {revealedCount: word.revealedCount + 1}});
-    }else{
-      //contact failed, then add the word to used word, and remove hint
-      Meteor.call('addUsedWord', hintGuessWord, curWordId);
-    }
-    Meteor.call('addUsedWord', hint.word, curWordId); 
-    Meteor.call('removeHint', hinterId, curWordId);
+      if(hintGuessWord.toUpperCase() == hint.word.toUpperCase()){
+        //contact successfully, then reveal one more letter
+        Words.update(curWordId, {$set : {revealedCount: word.revealedCount + 1}});
+      }else{
+        //contact failed, then add the word to used word, and remove hint
+        Meteor.call('addUsedWord', hintGuessWord, curWordId);
+      }
+      Meteor.call('addUsedWord', hint.word, curWordId); 
+      Meteor.call('removeHint', hinterId, curWordId);
+    }, 2000);
+    
   },
 });

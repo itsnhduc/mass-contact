@@ -51,9 +51,16 @@ Template.word.events({
     // do stuff
   },
   'click .submit-contact'() {
-    const curWordId = Template.instance().data._id;
+    const curWord = Template.instance().data
+    const curWordId = curWord._id;
+    const header = curWord.word.slice(0, curWord.revealedCount);
     const hintGuessWord = $('.guess-hint-word').val();
-    Meteor.call('contact', this.hinterId, hintGuessWord, curWordId);
+    if(header.toUpperCase() == hintGuessWord.slice(0, curWord.revealedCount).toUpperCase()){
+      Meteor.call('contact', this.hinterId, hintGuessWord, curWordId);
+    }else{
+      alert("Please input correct word start with revealed letters");
+    }
+    
   },
   'click .submit-holder-word'() {
     // do stuff

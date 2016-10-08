@@ -1,9 +1,10 @@
 <template name="word">
-  <article>
+  <article {{isHidden}}>
     <div>
       <strong>[{{revealedWord}}]</strong>
       <i>by {{holderName}}</i>
 			<input class="hide-word" type="button" value="Hide" style="float: right;">
+
     </div>
 		<br>
     {{#unless isHolder}}

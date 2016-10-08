@@ -51,7 +51,9 @@ Template.word.events({
     // do stuff
   },
   'click .submit-contact'() {
-    // do stuff
+    const curWordId = Template.instance().data._id;
+    const hintGuessWord = $('.guess-hint-word').val();
+    Meteor.call('contact', this.hinterId, hintGuessWord, curWordId);
   },
   'click .submit-holder-word'() {
     // do stuff

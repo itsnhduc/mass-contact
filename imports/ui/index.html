@@ -1,18 +1,54 @@
 <template name="index">
-  <h2>Index</h2>
-  {{#unless currentUser}}
-  <h4>Login</h4>
-  <input type="text" id="login-username" placeholder="Username" required>
-  <input type="password" id="login-password" placeholder="password" required>
-  <button type="submit" id="login">Login</button>
-  <h4>Register</h4>
-  <input type="text" id="reg-username" placeholder="Username" required>
-  <input type="password" id="reg-password" placeholder="Password" required>
-  <input type="password" id="reg-conf-password" placeholder="Confirm Password" required>
-  <button type="submit" id="register">Register</button>
-  {{else}}
-  <strong>Hi {{currentUser.username}}!</strong>
-  <span>You have logged in successfully.</span>
-  <button type="button" id="logout">Logout</button>
-  {{/unless}}
+  <section id="contact" class="text-page"> 
+    <h1 class="text-center">&lsaquo;&lsaquo;MASS CONTACT&rsaquo;&rsaquo;</h1>
+    <div class="row">
+      {{#unless currentUser}}
+        <div class="col-md-6">
+          <h2 class="heading">Login</h2>
+          <form id="login-form" class="controls">
+            <div class="form-group">
+              <label for="login-username">Your username *</label>
+              <input type="text" id="login-username" placeholder="Enter your username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Your password *</label>
+              <input type="password" id="login-password" placeholder="Enter your password" class="form-control" required>
+            </div>
+            <div class="text-center">
+              <input id="login" type="submit" value="Login" class="btn btn-primary btn-block">
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h2 class="heading">Register</h2>
+          <form id="reg-form" class="controls">
+            <div class="form-group">
+              <label for="reg-username">Your new username *</label>
+              <input type="text" id="reg-username" placeholder="Enter your username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Your new password *</label>
+              <input type="password" id="reg-password" placeholder="Enter your password" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="reg-conf-password">Confirm your new password *</label>
+              <input type="password" id="reg-conf-password" placeholder="Enter your password" class="form-control" required>
+            </div>
+            <div class="text-center">
+              <input id="register" type="submit" value="Register" class="btn btn-primary btn-block">
+            </div>
+          </form>
+        </div>
+      {{else}}
+        <div class="col-md-12 text-center">
+          <h3>Hi {{currentUser.username}}!</h3>
+          <input type="button" id="play" class="btn btn-lg btn-primary" value="Play Now">
+          <br>
+          - or -
+          <br>
+          <button type="button" id="logout" class="btn btn-danger">Logout</button>
+        </div>
+      {{/unless}}
+    </div>
+  </section>  
 </template>

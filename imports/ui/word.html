@@ -1,4 +1,5 @@
 <template name="word">
+<!-- <<<<<<< HEAD
   <article {{isHidden}}>
     <div>
       <strong>[{{revealedWord}}]</strong>
@@ -7,50 +8,54 @@
 
     </div>
 		<br>
+======= -->
+  <article>
+<!--<<<<<<< HEAD-->
+    <h3>
+      [{{revealedWord}}]
+      <i>&nbsp;by {{holderName}}</i>
+			<input class="hide-word" type="button" value="Hide" style="float: right;">
+    </h3>
+<!-- >>>>>>> 374b68076ec3e28e31391489bf4cdecf683dbce2 -->
     {{#unless isHolder}}
-      <div>
-        <input class="holder-word" type="text" placeholder="Guess the holder's word" {{isWon}}>
-        <input class="submit-holder-word" type="submit" value="Submit" {{isWon}}>
-				<span class="winner">{{guessOutput}}</span>
-				<span class="wrong-guess"></span>
-      </div>
-      <div>
-          <input class="new-hint" type="text" placeholder="Add a hint" {{isWon}}>
-          <input class="new-hint-word" type="text" placeholder="Your hint's word" {{isWon}}>
-          <input class="submit-hint" type="submit" value="Submit" {{isWon}}>
+      <div class="row">
+        <div class="col-md-6">
+          <input class="holder-word" type="text" placeholder="Guess the holder's word" {{isWon}}>
+          <input class="submit-holder-word btn btn-primary" type="submit" value="Submit" {{isWon}}>
+          <span class="winner">{{guessOutput}}</span>
+          <span class="wrong-guess"></span>
+        </div>
+        <div class="col-md-6">
+            <input class="new-hint" type="text" placeholder="Add a hint" {{isWon}}>
+            <input class="new-hint-word" type="text" placeholder="Your hint's word" {{isWon}}>
+            <input class="submit-hint btn btn-sm btn-primary" type="submit" value="Submit" {{isWon}}>
+        </div>
       </div>
 		{{else}}
 			<span class="winner">{{guessOutput}}</span>
     {{/unless}}
-
-    <ul>
-      {{#each hints}}
+    {{#each hints}}
+      <ul class="panel">
         <li>
-          {{this.hint}}&nbsp;
+          {{hint}}&nbsp;
           {{#if isHolder}}
             <input class="submit-guess" type="text" placeholder="Guess" {{isWon}}>
-            <input class="submit-guess" type="button" value="Submit" {{isWon}}>
+            <input class="submit-guess btn btn-primary" type="button" value="Submit" {{isWon}}>
             <span>×{{guessesLeft}}</span>
           {{else}}
             {{#if isHinter}}
-              <input class="remove-hint" type="button" value="×" {{isWon}}>
+              <input class="remove-hint btn btn-danger" type="button" value="×" {{isWon}}>
             {{else}}
-<!-- <<<<<<< HEAD
-              <input class="submit-contact" type="text" placeholder="Contact word" {{isWon}}>
-              <input class="submit-contact" type="button" value="Contact!" {{isWon}}>
-======= -->
-              <input class="guess-hint-word" type="text" placeholder="Contact word">
+              <input class="guess-hint-word" type="text" placeholder="Contact word" {{isWon}}>
               {{#if isHintLocked}}
-              <input disabled class="submit-contact" type="button" value="Contact!">
+                <input disabled class="submit-contact" type="button" value="Contact!" {{isWon}}>
               {{else}}
-              <input class="submit-contact" type="button" value="Contact!">
+                <input class="submit-contact btn btn-primary" type="button" value="Contact!" {{isWon}}>
               {{/if}}
-<!-- >>>>>>> abd7531b4050c9145f86ec7a6a381cac7cfc2204 -->
             {{/if}}
           {{/if}}
-
         </li>
-      {{/each}}
-    </ul>
+      </ul>
+    {{/each}}
   </article>
 </template>

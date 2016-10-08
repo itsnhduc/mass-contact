@@ -101,7 +101,7 @@ Template.word.events({
     Meteor.call('removeHint', Meteor.userId(), curWordId);
   },
   'click .submit-guess'() {
-    // do stuff
+    // do stuff (Nghia)
   },
   'click .submit-contact'(event) {
     const curWord = Template.instance().data;
@@ -110,7 +110,7 @@ Template.word.events({
     const hintGuessWord = event.target.closest('li').getElementsByClassName('guess-hint-word')[0].value;
     if(header.toUpperCase() == hintGuessWord.slice(0, curWord.revealedCount).toUpperCase()){
       Meteor.call('contact', this.hinterId, Meteor.userId(), hintGuessWord, curWordId);
-    }else{
+    } else {
       alert("Please input correct word start with revealed letters");
     }
 

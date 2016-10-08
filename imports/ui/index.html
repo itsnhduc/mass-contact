@@ -1,0 +1,18 @@
+<template name="index">
+  <h2>Index</h2>
+  {{#unless currentUser}}
+  <h4>Login</h4>
+  <input type="text" id="login-username" placeholder="Username" required>
+  <input type="password" id="login-password" placeholder="password" required>
+  <button type="button" id="login">Login</button>
+  <h4>Register</h4>
+  <input type="text" id="reg-username" placeholder="Username" required>
+  <input type="password" id="reg-password" placeholder="Password" required>
+  <input type="password" id="reg-conf-password" placeholder="Confirm Password" required>
+  <button type="button" id="register">Register</button>
+  {{else}}
+  <strong>Hi {{currentUser.username}}!</strong>
+  <span>You have logged in successfully.</span>
+  <button type="button" id="logout">Logout</button>
+  {{/unless}}
+</template>

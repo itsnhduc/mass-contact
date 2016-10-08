@@ -1,38 +1,40 @@
 <template name="word">
   <article>
-    <p>
-      <strong>[{{revealedWord}}]</strong>
-      <i>by {{holderName}}</i>
-    </p>
+    <h3>
+      [{{revealedWord}}]
+      <i>&nbsp;by {{holderName}}</i>
+    </h3>
     {{#unless isHolder}}
-      <div>
-        <input class="holder-word" type="text" placeholder="Guess the holder's word">
-        <input class="submit-holder-word" type="submit" value="Submit">
-      </div>
-      <div>
-          <input class="new-hint" type="text" placeholder="Add a hint">
-          <input class="new-hint-word" type="text" placeholder="Your hint's word">
-          <input class="submit-hint" type="submit" value="Submit">
+      <div class="row">
+        <div class="col-md-6">
+          <input class="holder-word" type="text" placeholder="Guess the holder's word">
+          <input class="submit-holder-word btn btn-primary" type="submit" value="Submit">
+        </div>
+        <div class="col-md-6">
+            <input class="new-hint" type="text" placeholder="Add a hint">
+            <input class="new-hint-word" type="text" placeholder="Your hint's word">
+            <input class="submit-hint btn btn-sm btn-primary" type="submit" value="Submit">
+        </div>
       </div>
     {{/unless}}
-    <ul>
       {{#each hints}}
-        <li>
-          {{hint}}&nbsp;
-          {{#if isHolder}}
-            <input type="text" placeholder="Guess">
-            <input class="submit-guess" type="button" value="Submit">
-            <span>×{{guessesLeft}}</span>
-          {{else}}
-            {{#if isHinter}}
-              <input class="remove-hint" type="button" value="×">
+        <ul class="panel">
+          <li>
+            {{hint}}&nbsp;
+            {{#if isHolder}}
+              <input type="text" placeholder="Guess">
+              <input class="submit-guess btn btn-primary" type="button" value="Submit">
+              <span>×{{guessesLeft}}</span>
             {{else}}
-              <input type="text" placeholder="Contact word">
-              <input class="submit-contact" type="button" value="Contact!">
+              {{#if isHinter}}
+                <input class="remove-hint btn btn-danger" type="button" value="×">
+              {{else}}
+                <input type="text" placeholder="Contact word">
+                <input class="submit-contact btn btn-primary" type="button" value="Contact!">
+              {{/if}}
             {{/if}}
-          {{/if}}
-        </li>
+          </li>
+        </ul>
       {{/each}}
-    </ul>
   </article>
 </template>

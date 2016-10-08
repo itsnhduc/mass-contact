@@ -48,12 +48,12 @@ Template.word.events({
     Meteor.call('removeHint', Meteor.userId(), curWordId);
   },
   'click .submit-guess'() {
-    // do stuff
+    // do stuff (Nghia)
   },
   'click .submit-contact'() {
-    // do stuff
+    // do stuff (Minh)
   },
   'click .submit-holder-word'() {
-    // do stuff
+    // do stuff (Phi)
   }
 });

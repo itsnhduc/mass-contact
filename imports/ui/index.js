@@ -11,18 +11,18 @@ Template.index.helpers({
 });
 
 Template.index.events({
-  'click #login'() {
+  'click #login'(event) {
+    event.preventDefault();
     const username = $('#login-username').val();
     const password = $('#login-password').val();
     Meteor.loginWithPassword(username, password, (err) => {
       if (err && err.message) {
         alert(err.message);
-      } else {
-        FlowRouter.go('/game');
       }
     });
   },
-  'click #register'() {
+  'click #register'(event) {
+    event.preventDefault();
     const username = $('#reg-username').val();
     const password = $('#reg-password').val();
     const confPassword = $('#reg-conf-password').val();
@@ -32,7 +32,12 @@ Template.index.events({
       alert('Passwords do not match!');
     }
   },
-  'click #logout'() {
+  'click #logout'(event) {
+    event.preventDefault();
     Meteor.logout((err) => err && err.message && alert(err.message));
+  },
+  'click #play'() {
+    event.preventDefault();
+    FlowRouter.go('/game');
   }
 });

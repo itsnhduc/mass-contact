@@ -84,15 +84,6 @@ Template.word.events({
   'click .submit-guess'() {
     // do stuff (Nghia)
   },
-<<<<<<< HEAD
-  'click .submit-contact'() {
-    // do stuff (Minh)
-  },
-  'click .submit-holder-word'() {
-    // do stuff (Phi)
-  }
-});
-=======
   'click .submit-contact'(event) {
     const curWord = Template.instance().data;
     const curWordId = curWord._id;
@@ -100,7 +91,7 @@ Template.word.events({
     const hintGuessWord = event.target.closest('li').getElementsByClassName('guess-hint-word')[0].value;
     if(header.toUpperCase() == hintGuessWord.slice(0, curWord.revealedCount).toUpperCase()){
       Meteor.call('contact', this.hinterId, Meteor.userId(), hintGuessWord, curWordId);
-    }else{
+    } else {
       alert("Please input correct word start with revealed letters");
     }
     
@@ -135,4 +126,3 @@ Template.word.events({
 		$(article).fadeOut(600);
 	}
 });
->>>>>>> 4df3a801511e826ba38ba76327fa4edf2b688133

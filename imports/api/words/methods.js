@@ -69,6 +69,7 @@ Meteor.methods({
       }else{
         //contact failed, then add the word to used word, and remove hint
         Meteor.call('addUsedWord', hintGuessWord, curWordId);
+        Words.update(curWordId, {$set : {hintCount: word.hintCount + 1}});
       }
       Meteor.call('addUsedWord', hint.word, curWordId); 
       Meteor.call('removeHint', hinterId, curWordId);

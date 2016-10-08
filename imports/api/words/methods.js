@@ -26,6 +26,7 @@ Meteor.methods({
             hinterId, // Mongo ID, userId
             contactorId: null, // Mongo ID, userId
             word,
+            wordGuess: null,
             hint,
             guessCount: 0
           }
@@ -44,6 +45,7 @@ Meteor.methods({
       hints: { hinterId }
     }});
   },
+
 	'guessHolderWord'(curWord, hinterId, guessWord) {
 
 		const word = curWord.word.toUpperCase();
@@ -60,6 +62,34 @@ Meteor.methods({
 			console.log("word: " + word);
 
 		}
-	}
+	},
 
+  'addUsedWord'(usedWord, curWordId){
+    Words.update(curWordId, { $addToSet: {
+          usedWords: usedWord.toUpperCase()
+      }});
+  },
+  'contact'(hinterId, contactorId, hintGuessWord, curWordId) {
+    const word = Words.findOne({'_id': curWordId});
+    var hint;
+    for(i = 0; i < word.hints.length; i++){
+      if (word.hints[i].hinterId == hinterId){
+        hint = word.hints[i];
+        break;
+      }
+    }
+    console.log(hint);
+    console.log(hint.contactorId != null);
+    if(hint.contactorId == null){
+      Words.update({_id: curWordId,
+                  "hints.hinterId" : hinterId
+                },
+                {
+                  $set :{'hints.$.guessCount': 4,
+                         'hints.$.wordGuess' : hintGuessWord.toUpperCase(),
+                         'hints.$.contactorId': contactorId}
+                });
+    }
+
+  }
 });

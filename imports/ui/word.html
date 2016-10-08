@@ -34,8 +34,17 @@
             {{#if isHinter}}
               <input class="remove-hint" type="button" value="×" {{isWon}}>
             {{else}}
+<!-- <<<<<<< HEAD
               <input class="submit-contact" type="text" placeholder="Contact word" {{isWon}}>
               <input class="submit-contact" type="button" value="Contact!" {{isWon}}>
+======= -->
+              <input class="guess-hint-word" type="text" placeholder="Contact word">
+              {{#if isHintLocked}}
+              <input disabled class="submit-contact" type="button" value="Contact!">
+              {{else}}
+              <input class="submit-contact" type="button" value="Contact!">
+              {{/if}}
+<!-- >>>>>>> abd7531b4050c9145f86ec7a6a381cac7cfc2204 -->
             {{/if}}
           {{/if}}
 

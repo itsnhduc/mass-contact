@@ -16,6 +16,7 @@ const Words = new Mongo.Collection('words');
 //       hinterId: String, // Mongo ID, userId
 //       contactorId: String = null, // Mongo ID, userId
 //       word: String,
+//		 wordGuess: String,
 //       hint: String,
 //       guessCount: int,
 //     }

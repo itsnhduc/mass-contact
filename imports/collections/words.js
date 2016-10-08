@@ -6,7 +6,7 @@ const Words = new Mongo.Collection('words');
 // {
 //   _id: String, // Mongo ID
 //   holderId: String, // Mongo ID, userId
-//   word: String, 
+//   word: String,
 //   revealedCount: int = 1, // max = word.length
 //   hintCount: int, // max = word.length * 2
 //   usedWords: Array of String = [],
@@ -16,6 +16,7 @@ const Words = new Mongo.Collection('words');
 //       hinterId: String, // Mongo ID, userId
 //       contactorId: String = null, // Mongo ID, userId
 //       word: String,
+//		 wordGuess: String,
 //       hint: String,
 //       guessCount: int,
 //     }
@@ -26,9 +27,9 @@ const Words = new Mongo.Collection('words');
 // {
 //   _id: String, // Mongo ID
 //   username: String,
-//   score: {
-//     asContactor: int, 
-//     asHolder: int
+//   profile: {
+//     scoreContactor: int,
+//     scoreHolder: int
 //   }
 // }
 

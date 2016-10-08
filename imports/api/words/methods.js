@@ -40,12 +40,39 @@ Meteor.methods({
       }
     }
   },
-  'removeHint'(hinterId, curWordId) {
+  'removeHint'(hinterId, curWordId, success) {
+    const word = Words.findOne({'_id': curWordId});
     Words.update(curWordId, { $pull: {
       hints: { hinterId }
     }});
+
+    if (!success) {
+      Words.update(curWordId, {$set : {hintCount: word.hintCount+1}});
+    }
   },
 
+  'revealHint' (hinterId, curWordId) {
+    const word = Words.findOne({'_id': curWordId});
+    var hint;
+    for(i = 0; i < word.hints.length; i++){
+      if (word.hints[i].hinterId == hinterId){
+        hint = word.hints[i];
+        break;
+      }
+    }
+    if(hintGuessWord.toUpperCase() == hint.word.toUpperCase()){
+        //contact successfully, then reveal one more letter
+        Words.update(curWordId, {$set : {revealedCount: word.revealedCount + 1}});
+        Meteor.call('removeHint', hinterId, curWordId, true);
+    }else{
+      //contact failed, then add the word to used word, and remove hint
+      Meteor.call('addUsedWord', hintGuessWord, curWordId);
+          Meteor.call('removeHint', hinterId, curWordId, false);
+    }
+    Meteor.call('addUsedWord', hint.word, curWordId); 
+
+  },
+  
 	'guessHolderWord'(curWord, hinterId, guessWord) {
 
 		const word = curWord.word.toUpperCase();

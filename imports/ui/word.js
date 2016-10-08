@@ -82,7 +82,19 @@ Template.word.events({
     Meteor.call('removeHint', Meteor.userId(), curWordId);
   },
   'click .submit-guess'() {
-    // do stuff (Nghia)
+    const curWord = Template.intance().data;
+    const curHint = this;
+    const guessWord = $("input[placeholder='Guess']").val();
+    if (curHint.guessCount > 0) {
+      if (guessWord === curHint.word) {
+        Meteor.call('removeHint', curHint.hinterId, curWord._id, false);
+      } else {
+        curHint.guessCount--;
+        if (curHint.guessCount == 0) {
+          Meteor.call('revealHint', curHint.hinterId, curWord._id);
+        }
+      }
+    }
   },
   'click .submit-contact'(event) {
     const curWord = Template.instance().data;

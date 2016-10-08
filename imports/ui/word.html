@@ -1,0 +1,32 @@
+<template name="word">
+  <article>
+    <p>
+      <strong>[{{revealedWord}}]</strong>
+      <i>by {{holderName}}</i>
+    </p>
+    {{#unless isHolder}}
+      <div>
+          <input class="new-hint" type="text" placeholder="Add a hint">
+          <input class="new-hint-word" type="text" placeholder="Your hint's word">
+          <input class="submit-hint" type="submit" value="Submit">
+      </div>
+    {{/unless}}
+    <ul>
+      {{#each hints}}
+        <li>
+          {{hint}}&nbsp;
+          {{#if isHolder}}
+            <input type="text" placeholder="Guess">
+            <span>×{{guessesLeft}}</span>
+          {{else}}
+            {{#if isHinter}}
+              <input class="remove-hint" type="button" value="×">
+            {{else}}
+              <input type="button" value="Contact!">
+            {{/if}}
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  </article>
+</template>

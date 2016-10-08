@@ -2,7 +2,7 @@
   "name": "mass-contact",
   "private": true,
   "scripts": {
-    "start": "meteor run --settings settings.json"
+    "start": "meteor run"
   },
   "dependencies": {
     "meteor-node-stubs": "~0.2.0"

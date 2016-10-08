@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Words } from '../../collections/words';
+import { Dictionary} from '../../collections/dictionary';
 
 Meteor.methods({
   'createWord'(holderId, newWord) {
@@ -19,6 +20,7 @@ Meteor.methods({
     const isNotCurrentlyHinting = curWord.hints.filter(h => h.hinterId === hinterId).length === 0;
     if (isNotOverHintLimit && isNotCurrentlyHinting) {
       const word = hintWord.toUpperCase();
+			console.log("addHint:" + word);
       Words.update(curWord._id, { $addToSet: {
           hints: {
             hinterId, // Mongo ID, userId
@@ -41,5 +43,23 @@ Meteor.methods({
     Words.update(curWordId, { $pull: {
       hints: { hinterId }
     }});
-  }
+  },
+	'guessHolderWord'(curWord, hinterId, guessWord) {
+
+		const word = curWord.word.toUpperCase();
+		if (word === guessWord.toUpperCase()) {
+			// update score
+			Meteor.users.update(Meteor.userId(), {$set: {
+				'profile.scoreContactor': Meteor.user().profile.scoreContactor + 1
+			}});
+
+			console.log("user: " + Meteor.user());
+			Words.update(curWord._id, {$set: {
+				winnerId: Meteor.userId()
+			}});
+			console.log("word: " + word);
+
+		}
+	}
+
 });

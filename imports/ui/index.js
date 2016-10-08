@@ -7,7 +7,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import './index.html';
 
 Template.index.helpers({
-  
+
 });
 
 Template.index.events({
@@ -27,7 +27,11 @@ Template.index.events({
     const password = $('#reg-password').val();
     const confPassword = $('#reg-conf-password').val();
     if (password === confPassword) {
-      Accounts.createUser({ username, password }, (err) => err && err.message && alert(err.message));
+			let profile = {
+				scoreContactor: 0,
+				scoreHolder: 0
+			}
+      Accounts.createUser({ username, password, profile }, (err) => err && err.message && alert(err.message));
     } else {
       alert('Passwords do not match!');
     }

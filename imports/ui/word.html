@@ -1,36 +1,44 @@
 <template name="word">
   <article>
-    <p>
+    <div>
       <strong>[{{revealedWord}}]</strong>
       <i>by {{holderName}}</i>
-    </p>
+			<input class="hide-word" type="button" value="Hide" style="float: right;">
+    </div>
+		<br>
     {{#unless isHolder}}
       <div>
-        <input class="holder-word" type="text" placeholder="Guess the holder's word">
-        <input class="submit-holder-word" type="submit" value="Submit">
+        <input class="holder-word" type="text" placeholder="Guess the holder's word" {{isWon}}>
+        <input class="submit-holder-word" type="submit" value="Submit" {{isWon}}>
+				<span class="winner">{{guessOutput}}</span>
+				<span class="wrong-guess"></span>
       </div>
       <div>
-          <input class="new-hint" type="text" placeholder="Add a hint">
-          <input class="new-hint-word" type="text" placeholder="Your hint's word">
-          <input class="submit-hint" type="submit" value="Submit">
+          <input class="new-hint" type="text" placeholder="Add a hint" {{isWon}}>
+          <input class="new-hint-word" type="text" placeholder="Your hint's word" {{isWon}}>
+          <input class="submit-hint" type="submit" value="Submit" {{isWon}}>
       </div>
+		{{else}}
+			<span class="winner">{{guessOutput}}</span>
     {{/unless}}
+
     <ul>
       {{#each hints}}
         <li>
-          {{hint}}&nbsp;
+          {{this.hint}}&nbsp;
           {{#if isHolder}}
-            <input type="text" placeholder="Guess">
-            <input class="submit-guess" type="button" value="Submit">
+            <input class="submit-guess" type="text" placeholder="Guess" {{isWon}}>
+            <input class="submit-guess" type="button" value="Submit" {{isWon}}>
             <span>×{{guessesLeft}}</span>
           {{else}}
             {{#if isHinter}}
-              <input class="remove-hint" type="button" value="×">
+              <input class="remove-hint" type="button" value="×" {{isWon}}>
             {{else}}
-              <input type="text" placeholder="Contact word">
-              <input class="submit-contact" type="button" value="Contact!">
+              <input class="submit-contact" type="text" placeholder="Contact word" {{isWon}}>
+              <input class="submit-contact" type="button" value="Contact!" {{isWon}}>
             {{/if}}
           {{/if}}
+
         </li>
       {{/each}}
     </ul>

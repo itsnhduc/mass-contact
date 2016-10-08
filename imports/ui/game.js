@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Words } from '../collections/words';
+import { Dictionary} from '../collections/dictionary';
 
 import './game.html';
 import './word.html';

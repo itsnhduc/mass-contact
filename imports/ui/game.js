@@ -9,7 +9,7 @@ Template.game.helpers({
   words() {
     return Words.find().fetch();
   }
-});	
+});
 
 Template.game.events({
   'click #submit-word'() {

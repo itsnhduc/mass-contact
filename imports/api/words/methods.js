@@ -40,6 +40,7 @@ Meteor.methods({
       }
     }
   },
+
   'removeHint'(hinterId, curWordId) {
     Words.update(curWordId, { $pull: {
       hints: { hinterId }
@@ -52,7 +53,8 @@ Meteor.methods({
 		if (word === guessWord.toUpperCase()) {
 			// update score
 			Meteor.users.update(Meteor.userId(), {$set: {
-				'profile.scoreContactor': Meteor.user().profile.scoreContactor + 1
+				'profile.scoreContactor': Meteor.user().profile.scoreContactor + 1,
+				'profile.scoreBoth': Meteor.user().profile.scoreBoth + 1
 			}});
 
 			console.log("user: " + Meteor.user());

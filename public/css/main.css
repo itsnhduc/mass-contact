@@ -49,6 +49,7 @@ section article .panel {
     box-shadow: 0px 0px 4px #111;
 }
 
+
 section article .panel {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
@@ -63,6 +64,10 @@ article i {
 
 h3 {
   margin-bottom: 10px;
+}
+
+span .revealed {
+	color: red;
 }
 
 article input[type=text] {

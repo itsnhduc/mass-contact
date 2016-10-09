@@ -29,7 +29,8 @@ Template.index.events({
     if (password === confPassword) {
 			let profile = {
 				scoreContactor: 0,
-				scoreHolder: 0
+				scoreHolder: 0,
+				scoreBoth: 0,
 			}
       Accounts.createUser({ username, password, profile }, (err) => err && err.message && alert(err.message));
     } else {

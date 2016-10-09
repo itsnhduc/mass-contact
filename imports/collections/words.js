@@ -30,6 +30,7 @@ const Words = new Mongo.Collection('words');
 //   profile: {
 //     scoreContactor: int,
 //     scoreHolder: int
+// 		 scoreBoth: int
 //   }
 // }
 

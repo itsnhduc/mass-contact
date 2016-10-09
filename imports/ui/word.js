@@ -88,7 +88,6 @@ Template.word.helpers({
 
 Template.word.events({
 	'click .submit-hint'(event) {
-
 		const curWord = this;
 		const newHint = $(event.target).parent().find('.new-hint').val();
 		const newHintWord = $(event.target).parent().find('.new-hint-word').val();

@@ -123,7 +123,11 @@ Meteor.methods({
     }
 
     Meteor.users.update(userId, {$set : {
+<<<<<<< HEAD
         'profile.scoreBoth': user.profile.scoreHolder + user.profile.scoreContactor
+=======
+        'profile.scoreBoth': user.profile.scoreBoth+1
+>>>>>>> 7a8ae72... update score function
       }});
   },
 

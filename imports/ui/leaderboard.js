@@ -1,6 +1,9 @@
 import { Template } from 'meteor/templating';
+<<<<<<< HEAD
 import { Words } from '../collections/words';
 
+=======
+>>>>>>> 7a8ae72... update score function
 import './leaderboard.html';
 
 Template.leaderboard.onCreated(function onCreated(){
@@ -9,6 +12,7 @@ Template.leaderboard.onCreated(function onCreated(){
 });
 
 Template.leaderboard.helpers({
+<<<<<<< HEAD
 	records() {
 		//console.log(Meteor.users.find().fetch());
 		this.bestContacter = Meteor.users.find({}, {sort: {'profile.scoreContactor': -1}}).fetch();
@@ -22,6 +26,8 @@ Template.leaderboard.helpers({
 		}
 		return this.ranking;
 	}
+=======
+>>>>>>> 7a8ae72... update score function
 });
 
 Template.leaderboard.events({

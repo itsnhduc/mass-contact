@@ -1,3 +1,55 @@
 <template name="leaderboard">
-  <h2>Leaderboard</h2>
+  <div class="panel">
+    <table id="leaderboard" class="table-bordered table-hovered table-condensed center-block">
+      <thead>
+        <tr>
+          <th colspan="2">
+            <h3>Best Word Holder</h3>
+          </th>
+          <th colspan="2">
+            <h3>Best Contactor</h3>
+          </th>
+          <th colspan="2">
+            <h3>Best of the Best</h3>
+          </th>
+        </tr>
+        <tr id="sub-header">
+          <th>Name</th>
+          <th>Score</th>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each records}}
+          <tr class="ranking">
+            {{> record}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="record">
+	<td>
+		{{nameHolder}}
+	</td>
+	<td>
+		{{scoreHolder}}
+	</td>
+	<td>
+		{{nameContactor}}
+	</td>
+	<td>
+		{{scoreContactor}}
+	</td>
+	<td>
+		{{nameBest}}
+	</td>
+	<td>
+		{{scoreBest}}
+	</td>
 </template>

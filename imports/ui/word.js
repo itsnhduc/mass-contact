@@ -15,12 +15,14 @@ Template.word.helpers({
   },
   revealedWord() {
     const curWord = this;
-    if (Meteor.userId() === curWord.holderId) {
-      return curWord.word;
-    } else {
-      return curWord.word.slice(0, curWord.revealedCount);
-    }
+    return curWord.word.slice(0, curWord.revealedCount);
+
   },
+	restWord() {
+		const curWord = this;
+		const rest = curWord.word.slice(curWord.revealedCount, curWord.word.length);
+		return rest;
+	},
 	guessOutput(){
 		const curWord = this;
 		if (curWord.winnerId) {

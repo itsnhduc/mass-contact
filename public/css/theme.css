@@ -234,10 +234,12 @@ NAVBAR
 .nav > li.disabled > a:focus {
   color: #999999;
 }
+
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
+
   border-color: #444444;
 }
 .nav-tabs {

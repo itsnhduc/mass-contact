@@ -2,6 +2,8 @@ import { Template } from 'meteor/templating';
 
 import './master.html';
 
+
+
 Template.master.helpers({
   routes() {
     return [
@@ -13,7 +15,10 @@ Template.master.helpers({
       tempEntry.isActive = FlowRouter.current().path === tempEntry.path ? 'active' : '';
       return tempEntry;
     });
-  }
+  },
+	username() {
+		return Meteor.user().username;
+	}
 });
 
 Template.master.events({

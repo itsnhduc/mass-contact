@@ -57,7 +57,6 @@ Template.word.helpers({
 	},
   guessesLeft() {
     const curHint = this;
-    console.log(this);
     return 5 - curHint.guessCount;
   },
   isHintLocked() {
@@ -78,11 +77,24 @@ Template.word.events({
 		$('.new-hint, .new-hint-word').val('');
 	},
   'click .remove-hint'() {
-		const curWordId = Template.instance().data._id;
-    Meteor.call('removeHint', Meteor.userId(), curWordId);
+    const curWord = Template.instance().data;
+		//const curWordId = curWord._id;
+    Meteor.call('removeHint', Meteor.userId(), curWord, true);
   },
-  'click .submit-guess'() {
-    // do stuff (Nghia)
+  'click .submit-guess[type=button]'() {
+    console.log("submit chua");
+    const curWord = Template.instance().data;
+    const curHint = this;
+    const guessWord = $(".submit-guess").val();
+    if (curHint.guessCount < 5 ) {
+      if (guessWord.toUpperCase() === curHint.word.toUpperCase()) {
+        Meteor.call('removeHint', curHint.hinterId, curWord, false);
+      } else {
+          Meteor.call('increaseGuessCount', curHint.hinterId, curWord._id);
+        }
+    } else {
+        Meteor.call('revealHint', curHint.hinterId, curWord._id);
+      }
   },
   'click .submit-contact'(event) {
     const curWord = Template.instance().data;

@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 
 import './word.html';
 
+
 Template.word.helpers({
   holderName() {
     const curWord = this;
@@ -51,7 +52,25 @@ Template.word.helpers({
 			return "disabled";
 		}
 		else {
+			return "";
+		}
+	},
 
+	isHidden() {
+		const curWord = Template.instance().data;
+		//console.log(localStorage.getItem('omitWords'));
+		if (JSON.parse(localStorage.getItem('omitWords'))) {
+			let omitWords = JSON.parse(localStorage.getItem('omitWords'));
+			console.log(omitWords);
+			if (omitWords.indexOf(curWord._id) > -1) {
+				console.log("Hide" + curWord._id);
+				return "hidden";
+			}
+			else {
+				return "";
+			}
+		}
+		else {
 			return "";
 		}
 	},
@@ -106,7 +125,7 @@ Template.word.events({
     } else {
       alert("Please input correct word start with revealed letters");
     }
-    
+
   },
   'click .submit-holder-word'(event) {
     // do stuff phi do it
@@ -134,7 +153,19 @@ Template.word.events({
   },
 	'click .hide-word'(event) {
 		let article = $(event.target).parent().parent();
+		const curWord = this;
 		console.log($(article));
 		$(article).fadeOut(600);
+
+		let omitWords = [curWord._id, ""];
+		//localStorage.removeItem("omitWords");
+		if (JSON.parse(localStorage.getItem('omitWords'))) {
+			omitWords = JSON.parse(localStorage.getItem('omitWords'));
+			omitWords.push(curWord._id);
+			localStorage.setItem('omitWords', JSON.stringify(omitWords));
+		}
+		else {
+			localStorage.setItem('omitWords', JSON.stringify(omitWords));
+		}
 	}
 });

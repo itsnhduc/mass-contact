@@ -1,10 +1,22 @@
 <template name="word">
-  <article>
+<!-- <<<<<<< HEAD
+  <article {{isHidden}}>
+    <div>
+      <strong>[{{revealedWord}}]</strong>
+      <i>by {{holderName}}</i>
+			<input class="hide-word" type="button" value="Hide" style="float: right;">
+
+    </div>
+		<br>
+======= -->
+  <article {{isHidden}}>
 <!--<<<<<<< HEAD-->
     <h3>
       [{{revealedWord}}]
       <i>&nbsp;by {{holderName}}</i>
+			<input class="hide-word" type="button" value="Hide" style="float: right;">
     </h3>
+<!-- >>>>>>> 374b68076ec3e28e31391489bf4cdecf683dbce2 -->
     {{#unless isHolder}}
       <div class="row">
         <div class="col-md-6">

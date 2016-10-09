@@ -90,6 +90,9 @@ article input[type=text] {
 #leaderboard h3 {
   text-align: center;
 }
+#leaderboard thead tr:first-child th {
+	border-top: none;
+}
 
 #sub-header {
   background-color: #555;

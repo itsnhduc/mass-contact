@@ -29,7 +29,8 @@ const Words = new Mongo.Collection('words');
 //   username: String,
 //   profile: {
 //     scoreContactor: int,
-//     scoreHolder: int
+//     scoreHolder: int,
+//		scoreBoth: int
 //   }
 // }
 

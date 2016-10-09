@@ -100,20 +100,21 @@ Template.word.events({
 		//const curWordId = curWord._id;
     Meteor.call('removeHint', Meteor.userId(), curWord, true);
   },
-  'click .submit-guess[type=button]'() {
-    console.log("submit chua");
+  'click .submit-guess[type=submit]'() {
     const curWord = Template.instance().data;
+    console.log(this);
     const curHint = this;
     const guessWord = $(".submit-guess").val();
     if (curHint.guessCount < 5 ) {
       if (guessWord.toUpperCase() === curHint.word.toUpperCase()) {
         Meteor.call('removeHint', curHint.hinterId, curWord, false);
+        Meteor.call('updateScore', Meteor.user()._id, false);
       } else {
           Meteor.call('increaseGuessCount', curHint.hinterId, curWord._id);
+          if (curHint.guessCount  == 4 )
+          	Meteor.call('revealHint', curHint.hinterId, curWord._id);
         }
-    } else {
-        Meteor.call('revealHint', curHint.hinterId, curWord._id);
-      }
+    }
   },
   'click .submit-contact'(event) {
     const curWord = Template.instance().data;

@@ -42,7 +42,6 @@ Meteor.methods({
   },
 
   'increaseGuessCount'(hinterId, curWordId) {
-    console.log("vo roi")
     const word = Words.findOne({'_id': curWordId});
     const newHints = Words.findOne({'hints.hinterId': hinterId}).hints;
     //console.log(newHints);
@@ -57,7 +56,6 @@ Meteor.methods({
   },
 
   'removeHint'(hinterId, curWord, success) {
-    console.log("1");
     //const word = Words.findOne({'_id': curWordId});
     for(i = 0; i < curWord.hints.length; i++){
       if (curWord.hints[i].hinterId == hinterId){
@@ -74,17 +72,16 @@ Meteor.methods({
       hints: { hinterId }
     }});
 
-    console.log("2");
     if (!success) {
       Words.update(curWord._id, {$set: {hintCount: curWord.hintCount+1}});
     }
-    console.log("3");
-
     
   },
 
   'revealHint' (hinterId, curWordId) {
+    console.log(curWordId);
     const word = Words.findOne({'_id': curWordId});
+    console.log(word);
     var hint;
     for(i = 0; i < word.hints.length; i++){
       if (word.hints[i].hinterId == hinterId){
@@ -93,21 +90,41 @@ Meteor.methods({
       }
     }
 
+    // const hinter = Meteor.users.findOne({'_id': hint.hinterId});
+    // const contactor = Meteor.users.findOne({'_id': hint.contactorId})
     if (hint.wordGuess !== null) {
       if(hint.wordGuess.toUpperCase() == hint.word.toUpperCase()){
-          //contact successfully, then reveal one more letter
+          Meteor.call('updateScore', hinterId, true);
+          Meteor.call('updateScore', hint.contactorId, true);
           Words.update(curWordId, {$set : {revealedCount: word.revealedCount + 1}});
-          Meteor.call('removeHint', hinterId, curWordId, true);
+          Meteor.call('removeHint', hinterId, word, true);
       }else{
         //contact failed, and remove hint
-          Meteor.call('removeHint', hinterId, curWordId, false);
+          Meteor.call('removeHint', hinterId, word, false);
       }
     } else {
       //chua xu li truong hop nay
-      console.log("lam gi day");
+      //console.log("lam gi day");
     }
 
 
+  },
+
+  'updateScore'(userId, isContactor){
+    const user = Meteor.users.findOne({'_id': userId});
+    if (isContactor) {
+      Meteor.users.update(userId, {$set : {
+        'profile.scoreContactor': user.profile.scoreContactor+1
+      }});
+    } else {
+        Meteor.users.update(userId, {$set : {
+        'profile.scoreHolder': user.profile.scoreHolder+1
+      }});
+    }
+
+    Meteor.users.update(userId, {$set : {
+        'profile.scoreBoth': user.profile.scoreBoth+1
+      }});
   },
 
 	'guessHolderWord'(curWord, hinterId, guessWord) {
@@ -149,10 +166,19 @@ Meteor.methods({
                   "hints.hinterId" : hinterId
                 },
                 {
-                  $set :{'hints.$.guessCount': 4,
-                         'hints.$.wordGuess' : hintGuessWord.toUpperCase(),
+                  $set :{'hints.$.wordGuess' : hintGuessWord.toUpperCase(),
                          'hints.$.contactorId': contactorId}
                 });
+      if(hint.guessCount == 5){
+        Meteor.call('revealHint', hinterId, curWordId);
+      }else{
+        Words.update({_id: curWordId,
+                  "hints.hinterId" : hinterId
+                },
+                {
+                  $set :{'hints.$.guessCount': 4}
+                });
+      }
     }
 
   }

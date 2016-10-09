@@ -2,6 +2,8 @@ import { Template } from 'meteor/templating';
 
 import './master.html';
 
+
+
 Template.master.helpers({
   routes() {
     return [
